@@ -1,5 +1,4 @@
-/*
- * CSE 12 Homework 8
+/* CSE 12 Homework 8
  * Elliot Humphrey / Kenichi Katayama
  * cs12edl / cs12edu
  * A09307269 / A09244911
@@ -19,9 +18,9 @@ import junit.framework.TestCase;
 public class QuantityTester extends TestCase {
 
 	
-	/* TEST 3 constructors */
+	/* TODO: REQUIRED: TEST 3 constructors */
 	/** Test 0-arg */
-	// creates quantity of value 1 and no units
+	// Creates quantity of value 1 and no units
 	
 	/** Test 1-arg */
 	// 1: takes Quantity as parameter,
@@ -33,7 +32,7 @@ public class QuantityTester extends TestCase {
 	// 3: List<String> denominator
 	
 	
-	/* TEST Quantity METHODS */
+	/* TODO: REQUIRED: TEST Quantity METHODS */
 	
 	/** Test mul */
 	
@@ -54,6 +53,9 @@ public class QuantityTester extends TestCase {
 	/** Test equals */
 	
 	/** Test hashCode */
+	
+	
+	/* ADDITIONAL TESTS (IF NEEDED) */
 	
 	
 }
