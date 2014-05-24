@@ -16,25 +16,63 @@ import junit.framework.TestCase;
  */
 public class ASTTester extends TestCase {
 
-	/* TODO: REQUIRED: TEST AST METHODS */
+	/* TODO: instance variables */
 	
+	
+	/* TODO: setUp() method */
+	@Override
+	public void setUp() throws Exception {
+		super.setUp();
+		
+	}
+	
+	
+	/* TODO: REQUIRED: TEST AST METHODS */
 	/** Test Product */
+	public void testProduct() {
+		
+	}
 	
 	/** Test Quotient */
+	public void testQuotient() {
+		
+	}
 	
 	/** Test Sum */
+	public void testSum() {
+		
+	}
 	
 	/** Test Difference */
+	public void testDifference() {
+		
+	}
 	
 	/** Test Power */
+	public void testPower() {
+		
+	}
 	
 	/** Test Negation */
+	public void testNegation() {
+		
+	}
 	
 	/** Test Normalize */
+	public void testNormalize() {
+		
+	}
 	
 	/** Test Define */
+	public void testDefine() {
+		
+	}
 	
 	/** Test Value */
+	public void testValue() {
+		
+	}
+	/* -- END REQUIRED TESTS -- */
 	
 	
 	/* ADDITIONAL TESTS (IF NEEDED) */

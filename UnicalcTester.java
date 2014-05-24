@@ -17,21 +17,53 @@ import junit.framework.TestCase;
  */
 public class UnicalcTester extends TestCase {
 
-	/* TODO: REQUIRED: TEST Unicalc METHODS */
+	/* TODO: instance variables */
 	
+	
+	/* TODO: setUp() method */
+	@Override
+	public void setUp() throws Exception {
+		super.setUp();
+		
+	}
+	
+	
+	/* TODO: REQUIRED: TEST Unicalc METHODS */
 	/** Test S */
+	public void testS() {
+		
+	}
 	
 	/** Test L */
+	public void testL() {
+		
+	}
 	
 	/** Test E */
+	public void testE() {
+		
+	}
 	
 	/** Test P */
+	public void testP() {
+		
+	}
 	
 	/** Test K */
+	public void testK() {
+		
+	}
 	
 	/** Test Q */
+	public void testQ() {
+		
+	}
 	
 	/** Test R */
+	public void testR() {
+		
+	}
+	/* -- END REQUIRED TESTS -- */
 	
 
 	/* ADDITIONAL TESTS IF NEEDED */ 
