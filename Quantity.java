@@ -68,4 +68,49 @@ public class Quantity {
 		
 	}
 	/* -- END CONSTRUCTORS */
+
+	/* GETTERS AND SETTERS */
+	public double getValue() {
+		return value;
+	}
+
+	public void setValue(double value) {
+		this.value = value;
+	}
+
+	public Map<String, Integer> getUnits() {
+		return units;
+	}
+
+	public void setUnits(Map<String, Integer> units) {
+		this.units = units;
+	}
+	/* -- END GETTERS AND SETTERS */
+
+	/* MATH FUNCTIONS */
+	public Quantity mul(Quantity otherQ) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public Quantity div(Quantity otherQ) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public Quantity add(Quantity otherQ) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public Quantity sub(Quantity otherQ) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public Quantity negate(Quantity otherQ) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public Quantity pow(Quantity otherQ) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	/* -- END MATH FUNCTIONS */
 }
