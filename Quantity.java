@@ -9,7 +9,8 @@
 
 import java.util.Map;
 import java.util.List;
-
+import java.util.TreeSet;
+import java.text.DecimalFormat;
 
 /**
  * Title: class Quantity
@@ -87,6 +88,7 @@ public class Quantity {
 	}
 	/* -- END GETTERS AND SETTERS */
 
+	
 	/* MATH FUNCTIONS */
 	public Quantity mul(Quantity otherQ) {
 		// TODO Auto-generated method stub
@@ -104,13 +106,63 @@ public class Quantity {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public Quantity negate(Quantity otherQ) {
+	public Quantity pow(int power) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public Quantity pow(Quantity otherQ) {
+	public Quantity negate() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	/* -- END MATH FUNCTIONS */
+	
+	
+	/* OTHER FUNCTIONS */
+	public boolean equals(Object checkValue)
+	{
+		//TODO
+		return false;
+	}
+	
+	public int hashCode()
+	{
+		return this.toString().hashCode();
+	}
+	
+	public String toString()
+	{
+		double myValue = this.value;
+		Map<String,Integer> myUnits = this.units;
+		
+		//Get units in order
+		TreeSet<String> orderedUnits =
+				new TreeSet<String>(myUnits.keySet());
+		
+		StringBuffer unitsString = new StringBuffer();
+		
+		for (String key: orderedUnits) {
+			int expt = myUnits.get(key);
+			if (expt !=1)
+				unitsString.append("^" + expt);
+		}
+		
+		//Used to convert doubles to a string
+		//with fixed max num of decimal places
+		DecimalFormat df = new DecimalFormat("0.0####");
+		
+		//Put it all together and return
+		return df.format(myValue)+unitsString.toString();
+	}
+	
+	public static Quantity normalizedUnit(String unitName, Map<String,Quantity> db)
+	{
+		//TODO
+		return (Quantity)null;
+	}
+	public Quantity normalize(Map<String,Quantity> db)
+	{
+		//TODO
+		return (Quantity)null;
+	}
+	/* -- END OTHER FUNCTIONS */
 }

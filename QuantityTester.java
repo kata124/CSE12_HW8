@@ -6,7 +6,10 @@
  * TODO: DATE
  */
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import junit.framework.TestCase;
@@ -83,7 +86,7 @@ public class QuantityTester extends TestCase {
 			fail("Should successfully create a new Quantity object");
 		}
 		assertEquals("Value threeArg should be 9.8", 9.8, threeArg.getValue());
-		assertNotNull("Units threeArg exists", threeArg.getUnits());
+		assertEquals("Has two units in unit map", 2, threeArg.getUnits().size());
 	}
 	/* -- END CONSTRUCTOR TESTS -- */
 	
@@ -186,32 +189,58 @@ public class QuantityTester extends TestCase {
 	
 	/** Test negate */
 	public void testNegate() {
-		
-	}
-	
-	/** Test normalizedUnit */
-	public void testNormalizedUnit() {
-		
-	}
-	
-	/** Test normalize */
-	public void testNormalize() {
-		
+		Quantity resultQ = firstQ.negate();
+		assertEquals("operation is executed properly", resultQ.getValue(), 
+				firstQ.getValue()*-1);
+		//initial quantity should not change
+		assertEquals("firstQ is unchanged", 2.0, firstQ.getValue());
 	}
 	
 	/** Test pow */
 	public void testpow() {
-		
+		Quantity resultQ = firstQ.pow(-2);
+		assertEquals("operation is executed properly", resultQ.getValue(), 
+				Math.pow(firstQ.getValue(),-2));
+		//initial quantity should not change
+		assertEquals("firstQ is unchanged", 2.0, firstQ.getValue());
 	}
 	
 	/** Test equals */
 	public void testEquals() {
+		Quantity decQ = new Quantity(.111112, Arrays.asList("s"), Arrays.asList(""));
+		Quantity isEqualQ = new Quantity(.111113, Arrays.asList("s"), Arrays.asList(""));
+		Quantity notEqualQ = new Quantity(.111118, Arrays.asList("s"), Arrays.asList(""));
 		
+		assertTrue("decQ equals isEqualQ", decQ.equals(isEqualQ));
+		assertFalse("decQ does not equal notEqualQ", decQ.equals(notEqualQ));
 	}
 	
 	/** Test hashCode */
 	public void testHashCode() {
+		Quantity copyQ = new Quantity(firstQ);
+		assertTrue(copyQ.hashCode() == firstQ.hashCode());
+		assertFalse(copyQ.hashCode() == secondQ.hashCode());
+	}
+	
+	Map<String,Quantity> db = QuantityDB.getDB();
+	
+	/** Test normalizedUnit */
+	public void testNormalizedUnit() {
+		Quantity checkQ = Quantity.normalizedUnit("km", db);
+		assertEquals("checkQ is 1000 meters", "1000 meter", checkQ.toString());
 		
+		checkQ = Quantity.normalizedUnit("kph", db);
+		assertEquals("checkQ is .27 mps", ".27777... meters per second", checkQ.toString());
+		
+		checkQ = Quantity.normalizedUnit("smoot", db);
+		assertEquals("checkQ is 1 smoot", "1 smoot", checkQ.toString());
+	}
+	
+	/** Test normalize */
+	public void testNormalize() {
+		Quantity normQ = new Quantity(1, Arrays.asList("k"), Arrays.asList("h"));
+		Quantity checkQ = normQ.normalize(db);
+		assertEquals("checkQ is .27 mps", ".27777... meters per second", checkQ.toString());
 	}
 	/* -- END REQUIRED TESTS -- */
 	
