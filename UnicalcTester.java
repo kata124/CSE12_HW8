@@ -50,6 +50,12 @@ public class UnicalcTester extends TestCase {
 		// def W L
 		
 		String input = "def smoot 67.0 inches";
+		unicalc.tokenize(input);
+		//Define(Value(1.0 inches));
+		AST t1 = new Product(new Value(new Quantity(67.0, emp, emp)), new Value (new Quantity(1.0, Arrays.asList("inches"), emp)));
+		AST tree = new Define("smoot", t1);
+		//System.out.println(unicalc.S());
+		assertTrue(tree.equals(unicalc.S()));
 	
 		
 		
@@ -57,7 +63,15 @@ public class UnicalcTester extends TestCase {
 	
 	/** Test L */
 	public void testL() {
+		// # E
+		String input = "# 3.0 inches";
+		unicalc.tokenize(input);
+		//Normalize(Value(3.0 inches));
+		AST t1 = new Product( new Value(new Quantity(3.0, emp, emp)), new Value(new Quantity( 1.0, Arrays.asList("inches"), emp)));
+		AST tree = new Normalize(t1);
+		//System.out.println(unicalc.L());
 		
+		assertTrue(tree.equals(unicalc.L()));
 	}
 	
 	/** Test E */
