@@ -27,7 +27,6 @@ public class UnicalcTester extends TestCase {
 		
 	}
 	
-	
 	/* TODO: REQUIRED: TEST Unicalc METHODS */
 	/** Test S */
 	public void testS() {

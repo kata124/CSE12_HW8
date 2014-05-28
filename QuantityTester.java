@@ -3,7 +3,7 @@
  * cs12edl / cs12edu
  * A09307269 / A09244911
  * Section A00 (for both)
- * TODO: DATE
+ * May 27, 2014
  */
 
 import java.util.ArrayList;
@@ -23,17 +23,17 @@ import junit.framework.TestCase;
  */
 public class QuantityTester extends TestCase {
 
-	/* TODO: instance variables */
+	/* instance variables */
 	
 	
-	/* TODO: setUp() method */
+	/* setUp() method */
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();
 	}
 	
 	
-	/* TODO: REQUIRED: TEST 3 constructors */
+	/* REQUIRED: TEST 3 constructors */
 	/** Test 0-arg */	// Creates quantity of value 1 and empty units map
 	public void test0ArgConstructor() {
 		Quantity noArg = null;
@@ -43,8 +43,7 @@ public class QuantityTester extends TestCase {
 		{
 			fail("Should successfully create a new Quantity object");
 		}
-		assertEquals("Value should default to 1", 1, noArg.getValue());
-		assertNotNull("Should have empty units map", noArg.getUnits());
+		assertEquals("toString should be 1", "1", noArg.toString());
 	}
 	
 	// 1: takes Quantity as parameter,
@@ -61,9 +60,7 @@ public class QuantityTester extends TestCase {
 			fail("Should successfully create a new Quantity object");
 		}
 		assertNotSame("zeroArg should not be oneArg", zeroArg, oneArg);
-		
-		assertEquals("Value zeroArg should equal value oneArg", zeroArg.getValue(), zeroArg.getValue());
-		assertEquals("Units zeroArg should equal units oneArg", zeroArg.getUnits(), zeroArg.getUnits());
+		assertEquals("zeroArg should equal to oneArg", zeroArg.toString(), zeroArg.toString());
 	}
 
 	/** Test 3-arg */
@@ -85,8 +82,7 @@ public class QuantityTester extends TestCase {
 		{
 			fail("Should successfully create a new Quantity object");
 		}
-		assertEquals("Value threeArg should be 9.8", 9.8, threeArg.getValue());
-		assertEquals("Has two units in unit map", 2, threeArg.getUnits().size());
+		assertEquals("Value threeArg should be 9.8 m s^-2", "9.8 m s^-2", threeArg.toString());
 	}
 	/* -- END CONSTRUCTOR TESTS -- */
 	
@@ -108,11 +104,10 @@ public class QuantityTester extends TestCase {
 			//continue should throw an exception
 		}
 		Quantity resultQ = firstQ.mul(secondQ);
-		assertEquals("operation is executed properly", resultQ.getValue(), 
-				firstQ.getValue()*secondQ.getValue());
+		assertEquals("operation is executed properly", "6.0 s", resultQ.toString());
 		//neither of the initial quantities should change
-		assertEquals("firstQ is unchanged", 2.0, firstQ.getValue());
-		assertEquals("secondQ is unchanged", 3.0, secondQ.getValue());
+		assertEquals("firstQ is unchanged", "2.0 s", firstQ.toString());
+		assertEquals("secondQ is unchanged", "3.0 s", secondQ.toString());
 	}
 	
 	/** Test div */
@@ -131,12 +126,11 @@ public class QuantityTester extends TestCase {
 		{
 			//continue should throw an exception
 		}
-		Quantity resultQ = firstQ.div(secondQ);
-		assertEquals("operation is executed properly", resultQ.getValue(), 
-				firstQ.getValue()/secondQ.getValue());
+		Quantity resultQ = secondQ.div(firstQ);
+		assertEquals("operation is executed properly", "1.5 s", resultQ.toString());
 		//neither of the initial quantities should change
-		assertEquals("firstQ is unchanged", 2.0, firstQ.getValue());
-		assertEquals("secondQ is unchanged", 3.0, secondQ.getValue());
+		assertEquals("firstQ is unchanged", "2.0 s", firstQ.toString());
+		assertEquals("secondQ is unchanged", "3.0 s", secondQ.toString());
 	}
 	
 	/** Test add */
@@ -156,11 +150,10 @@ public class QuantityTester extends TestCase {
 			//continue should throw an exception
 		}
 		Quantity resultQ = firstQ.add(secondQ);
-		assertEquals("operation is executed properly", resultQ.getValue(), 
-				firstQ.getValue()+secondQ.getValue());
+		assertEquals("operation is executed properly", "5.0 s", resultQ.toString());
 		//neither of the initial quantities should change
-		assertEquals("firstQ is unchanged", 2.0, firstQ.getValue());
-		assertEquals("secondQ is unchanged", 3.0, secondQ.getValue());
+		assertEquals("firstQ is unchanged", "2.0 s", firstQ.toString());
+		assertEquals("secondQ is unchanged", "3.0 s", secondQ.toString());
 	}
 	
 	/** Test sub */
@@ -180,29 +173,26 @@ public class QuantityTester extends TestCase {
 			//continue should throw an exception
 		}
 		Quantity resultQ = firstQ.sub(secondQ);
-		assertEquals("operation is executed properly", resultQ.getValue(), 
-				firstQ.getValue()-secondQ.getValue());
+		assertEquals("operation is executed properly", "-1.0 s", resultQ.toString());
 		//neither of the initial quantities should change
-		assertEquals("firstQ is unchanged", 2.0, firstQ.getValue());
-		assertEquals("secondQ is unchanged", 3.0, secondQ.getValue());
+		assertEquals("firstQ is unchanged", "2.0 s", firstQ.toString());
+		assertEquals("secondQ is unchanged", "3.0 s", secondQ.toString());
 	}
 	
 	/** Test negate */
 	public void testNegate() {
 		Quantity resultQ = firstQ.negate();
-		assertEquals("operation is executed properly", resultQ.getValue(), 
-				firstQ.getValue()*-1);
+		assertEquals("operation is executed properly", "-2.0 s", resultQ.toString());
 		//initial quantity should not change
-		assertEquals("firstQ is unchanged", 2.0, firstQ.getValue());
+		assertEquals("firstQ is unchanged", "2.0 s", firstQ.toString());
 	}
 	
 	/** Test pow */
 	public void testpow() {
-		Quantity resultQ = firstQ.pow(-2);
-		assertEquals("operation is executed properly", resultQ.getValue(), 
-				Math.pow(firstQ.getValue(),-2));
+		Quantity resultQ = firstQ.pow(3);
+		assertEquals("operation is executed properly", "8.0 s", resultQ.toString());
 		//initial quantity should not change
-		assertEquals("firstQ is unchanged", 2.0, firstQ.getValue());
+		assertEquals("firstQ is unchanged", "2.0 s", firstQ.toString());
 	}
 	
 	/** Test equals */
