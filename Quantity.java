@@ -70,25 +70,6 @@ public class Quantity {
 	}
 	/* -- END CONSTRUCTORS */
 
-	/* GETTERS AND SETTERS */
-	public double getValue() {
-		return value;
-	}
-
-	public void setValue(double value) {
-		this.value = value;
-	}
-
-	public Map<String, Integer> getUnits() {
-		return units;
-	}
-
-	public void setUnits(Map<String, Integer> units) {
-		this.units = units;
-	}
-	/* -- END GETTERS AND SETTERS */
-
-	
 	/* MATH FUNCTIONS */
 	public Quantity mul(Quantity otherQ) {
 		// TODO Auto-generated method stub
@@ -145,7 +126,6 @@ public class Quantity {
 			if (expt !=1)
 				unitsString.append("^" + expt);
 		}
-		
 		//Used to convert doubles to a string
 		//with fixed max num of decimal places
 		DecimalFormat df = new DecimalFormat("0.0####");
