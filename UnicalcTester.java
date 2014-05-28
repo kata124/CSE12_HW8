@@ -43,6 +43,7 @@ public class UnicalcTester extends TestCase {
 		
 	}
 	
+	
 	/* TODO: REQUIRED: TEST Unicalc METHODS */
 	/** Test S */
 	public void testS() {
@@ -61,7 +62,28 @@ public class UnicalcTester extends TestCase {
 	
 	/** Test E */
 	public void testE() {
-		
+		// P := P + E | P - E | P
+		String input = "5.0 inches - 3.0 inches * 4.0 / 2.0 inches ^ 2";
+		unicalc.tokenize(input);
+		//System.out.println(unicalc.E());
+		// Difference(Product(Value(5.0),Value(1.0 inches)),Product(Product(Value(3.0),Value(1.0 inches)),Quotient(Value(4.0),Product(Value(2.0),Power(Value(1.0 inches),2)))))
+		AST t1 = new Value(new Quantity(1.0, Arrays.asList("inches"), emp));
+		AST t2 = new Power(t1, 2);
+		AST t3 = new Value(new Quantity(2.0, emp, emp));
+		AST t4 = new Product(t3, t2);
+		AST t5 = new Value(new Quantity(4.0, emp, emp));
+		AST t6 = new Quotient(t5, t4);
+		AST t7 = new Value(new Quantity(1.0, Arrays.asList("inches"), emp));
+		AST t8 = new Value(new Quantity(3.0, emp, emp));
+		AST t9 = new Product(t8, t7);
+		AST t10 = new Product(t9, t6);
+		AST t11 = new Value(new Quantity(1.0, Arrays.asList("inches"), emp));
+		AST t12 = new Value(new Quantity(5.0, emp, emp));
+		AST t13 = new Product(t12, t11);
+		AST tree = new Difference(t13, t10);
+		//System.out.println(tree.toString());
+		//System.out.println(unicalc.E());
+		assertTrue(tree.equals(unicalc.E()));
 	}
 	
 	/** Test P */
@@ -69,7 +91,7 @@ public class UnicalcTester extends TestCase {
 		// P := K * P | K / P | K
 		String input = "- 5.0 inches * 4.0 / 2.0 inches ^ 2";
 		unicalc.tokenize(input);
-		// System.out.println(unicalc.P());
+		//System.out.println(unicalc.P());
 		// Product(Negation(Product(Value(5.0),Value(1.0 inches))),Quotient(Value(4.0),Product(Value(2.0),Power(Value(1.0 inches),2))))
 		AST t1 = new Value(new Quantity(1.0, Arrays.asList("inches"), emp));
 		AST t2 = new Power(t1, 2);
@@ -82,6 +104,7 @@ public class UnicalcTester extends TestCase {
 		AST t9 = new Product(t7, t8);
 		AST t10 = new Negation(t9);
 		AST tree = new Product(t10, t6);
+		
 		assertTrue(tree.equals(unicalc.P()));
 		
 		
