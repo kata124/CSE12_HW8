@@ -180,31 +180,25 @@ public class Quantity {
 	public Quantity pow(int power) {
 
 		Quantity q = new Quantity(this);
-//		double value = q.getValue();
-		
-		//List<String> numerator = new ArrayList<String>;
-		
+
 		if (power == 0) {
 			return new Quantity();
 		}
 		if (power == 1) {
 			return q;
-		}
-//		q.setValue(Math.pow(value, (double) power));
-//		Map<String, Integer> tmpUnits = q.getUnits();
-		
+		}	
 		Quantity qStat = new Quantity(q);
 		for (int i = 2; i <= power; i++ ) {
-			System.out.println(i);
-			q.mul(qStat);
+			q=q.mul(qStat); //multiply q by itself
 		}
 	
 		return q;
 
 	}
 	public Quantity negate() {
-		// TODO Auto-generated method stub
-		return null;
+		Quantity q = new Quantity(this);
+		q.setValue(q.getValue()*-1);
+		return q;
 	}
 	/* -- END MATH FUNCTIONS */
 	
@@ -334,10 +328,6 @@ public class Quantity {
 		q.setValue(val);
 		return q;
 	}
-	
-
-	
-
 
 	//takes in a units map and adds it to the current units
 	private void addUnits(Map<String, Integer> addmap){
