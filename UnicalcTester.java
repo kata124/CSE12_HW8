@@ -13,10 +13,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import junit.framework.TestCase;
-/*test
- * 
- */
-
 
 /**
  * Title: class UnicalcTester
@@ -33,7 +29,8 @@ public class UnicalcTester extends TestCase {
 	List<String> emp = new ArrayList<String>();
 	AST tree;
 	
-	
+	int fixbug = 0;//TODO
+
 	/* TODO: setUp() method */
 	@Override
 	public void setUp() throws Exception {
