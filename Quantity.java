@@ -3,10 +3,13 @@
  * cs12edl / cs12edu
  * A09307269 / A09244911
  * Section A00 (for both)
- * TODO: DATE
+ * 06/02/14
  */
 
 
+
+
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
@@ -40,26 +43,28 @@ public class Quantity {
 	
 	/* CONSTRUCTORS */
 	/** 
-	 * TODO: 0-arg constructor
+	 * 0-arg constructor
 	 * Creates a Quantity object with default quantity of 1, and no units. 
 	 * It should still contain a Map object (a Map with no entries)
 	 */
 	public Quantity() {
-		
+		value = 1;
+		units = new HashMap<String, Integer>();
 	}
 	
 	/**
-	 * TODO: 1-arg constructor
+	 * 1-arg constructor
 	 * Creates a deep copy of passed in Quantity object.
 	 * 
 	 * @param quantity - a Quantity object to be deep copied
 	 */
 	public Quantity(Quantity quantity) {
-		
+		value = quantity.getValue();
+		units = quantity.getUnits();
 	}
-	
+
 	/**
-	 * TODO: 3-arg constructor
+	 * 3-arg constructor
 	 * Creates a Quantity object with specified value, units with positive
 	 * exponents, and units with negative units (e.g. 9.8 m/s^2)
 	 * 
@@ -70,21 +75,40 @@ public class Quantity {
 	 */
 	public Quantity(double value, List<String> numerator, 
 								  List<String> denominator) {
+		if (numerator == null || denominator == null)
+			throw new IllegalArgumentException();
 		
+		this.value = value; //store value
+		units = new HashMap<String, Integer>(); //new map
+		String currentkey;
+		
+		//go through numerator adding to map
+		for (int index=0; index<numerator.size(); index++) {
+			currentkey = numerator.get(index);
+			if (units.containsKey(currentkey))//if already in map, increment
+				units.put(currentkey, units.get(currentkey) + 1);
+			else //else add it to the map
+				units.put(currentkey, 1);
+		}
+
+		
+		//go through denominator adding to map
+		for (int index=0; index<numerator.size(); index++) {
+			currentkey = denominator.get(index);
+			if (units.containsKey(currentkey))//if already in map, decrement
+				units.put(currentkey, units.get(currentkey) - 1);
+				if (units.get(currentkey) == 0)
+					units.remove(currentkey);//remove if zero
+			else //else add it to the map
+				units.put(currentkey, -1);
+		}
 	}
 	/* -- END CONSTRUCTORS */
 
 	/* MATH FUNCTIONS */
 	public Quantity mul(Quantity otherQ) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
-		try {
-			
-			return null;
-		}
-		catch (IllegalArgumentException e) {
-			
-		}
-		
+		return null;
 	}
 	public Quantity div(Quantity otherQ) {
 		// TODO Auto-generated method stub
@@ -106,9 +130,6 @@ public class Quantity {
 		Quantity q = new Quantity(this);
 		q.setValue(sum);
 		return q;
-		
-		
-		return null;
 	}
 	
 	public Quantity sub(Quantity otherQ) {
@@ -149,8 +170,7 @@ public class Quantity {
 		return this.toString().hashCode();
 	}
 	
-	public String toString()
-	{
+	public String toString() {
 		double myValue = this.value;
 		Map<String,Integer> myUnits = this.units;
 		
@@ -186,6 +206,7 @@ public class Quantity {
 	}
 	/* -- END OTHER FUNCTIONS */
 	
+
 	/* Private helper methods */
 	private String toStringUnits() {
 		Map<String,Integer> myUnits = this.units;
@@ -203,4 +224,18 @@ public class Quantity {
 		
 		return unitsString.toString();
 	}
+
+	
+	/*-- PRIVATE HELPER METHODS --*/
+	private Map<String, Integer> getUnits() {
+		return units;
+	}
+
+	private double getValue() {
+		return value;
+	}
+	private void setValue(double value) {
+		this.value = value;
+	}
 }
+

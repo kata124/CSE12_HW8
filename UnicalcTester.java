@@ -28,8 +28,7 @@ public class UnicalcTester extends TestCase {
 	
 	List<String> emp = new ArrayList<String>();
 	AST tree;
-	
-	
+
 	/* TODO: setUp() method */
 	@Override
 	public void setUp() throws Exception {
