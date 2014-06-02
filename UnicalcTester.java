@@ -28,8 +28,6 @@ public class UnicalcTester extends TestCase {
 	
 	List<String> emp = new ArrayList<String>();
 	AST tree;
-	
-	int fixbug = 0;//TODO
 
 	/* TODO: setUp() method */
 	@Override
