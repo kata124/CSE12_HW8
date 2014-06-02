@@ -9,6 +9,7 @@
 
 
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -147,7 +148,6 @@ public class Quantity {
 	}
 
 	public Quantity add(Quantity otherQ) throws IllegalArgumentException {
-		
 		// check if arg is null OR if two Quantity objects have diff units
 		// throw IAE
 		if (otherQ == null || 
@@ -299,6 +299,7 @@ public class Quantity {
 		return unitsString.toString();
 	}
 	
+
 	/**
 	 * qMath
 	 * Helper method that performs mathematical operations based on 
@@ -336,6 +337,8 @@ public class Quantity {
 	
 
 	
+
+
 	//takes in a units map and adds it to the current units
 	private void addUnits(Map<String, Integer> addmap){
 		TreeSet<String> orderedUnits =
