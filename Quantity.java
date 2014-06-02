@@ -189,7 +189,7 @@ public class Quantity {
 		}	
 		Quantity qStat = new Quantity(q);
 		for (int i = 2; i <= power; i++ ) {
-			q=q.mul(qStat); //multiply q by itself
+			q = q.mul(qStat);
 		}
 	
 		return q;
