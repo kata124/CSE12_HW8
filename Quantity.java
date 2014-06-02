@@ -128,9 +128,9 @@ public class Quantity {
 	
 		// check if arg is null OR if two Quantity objects have diff units
 		// throw IAE
-		if (otherQ.equals(null) || 
+		if (otherQ == null || 
 			this.toStringUnits().compareTo(otherQ.toStringUnits()) != 0) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Cannot add two different units or null");
 		}
 		
 		// valid argument

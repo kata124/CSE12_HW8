@@ -24,11 +24,13 @@ import junit.framework.TestCase;
 public class QuantityTester extends TestCase {
 
 	/* instance variables */
+	//Map<String,Quantity> db;
 	
 	/* setUp() method */
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();
+		//db = QuantityDB.getDB();
 	}
 	
 	/* REQUIRED: TEST 3 constructors */
@@ -213,8 +215,6 @@ public class QuantityTester extends TestCase {
 		assertTrue(copyQ.hashCode() == firstQ.hashCode());
 		assertFalse(copyQ.hashCode() == secondQ.hashCode());
 	}
-	
-	Map<String,Quantity> db = QuantityDB.getDB();
 	
 	/** Test normalizedUnit */
 	public void testNormalizedUnit() {
