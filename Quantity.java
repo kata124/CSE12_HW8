@@ -184,4 +184,7 @@ public class Quantity {
 	private double getValue() {
 		return value;
 	}
+	private void setValue(int value) {
+		this.value = value;
+	}
 }
