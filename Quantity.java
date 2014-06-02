@@ -196,7 +196,7 @@ public class Quantity {
 		Quantity qStat = new Quantity(q);
 		for (int i = 2; i <= power; i++ ) {
 			System.out.println(i);
-			q.mul(qStat);
+			q = q.mul(qStat);
 		}
 	
 		return q;

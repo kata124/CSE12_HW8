@@ -96,7 +96,7 @@ public class QuantityTester extends TestCase {
 	Quantity firstQ = new Quantity(2.0, Arrays.asList("s"), Arrays.asList(""));
 	Quantity secondQ = new Quantity(3.0, Arrays.asList("s"), Arrays.asList(""));
 	Quantity zeroQ = new Quantity(0, Arrays.asList("s"), Arrays.asList(""));
-	Quantity diffUnitsQ = new Quantity(1.0, Arrays.asList("m"), Arrays.asList("s"));
+	Quantity diffUnitsQ = new Quantity(1.0, Arrays.asList("m"), Arrays.asList("s", "s"));
 
 	/** Test mul */
 	public void testMul() {
@@ -192,12 +192,19 @@ public class QuantityTester extends TestCase {
 	}
 	
 	/** Test pow */
-	public void testpow() {
+	public void testPow() {
 		Quantity resultQ = firstQ.pow(3);
 		System.out.println(resultQ.toString());
 		assertEquals("operation is executed properly", "8.0 s^3", resultQ.toString());
 		//initial quantity should not change
 		assertEquals("firstQ is unchanged", "2.0 s", firstQ.toString());
+		
+		Quantity resultQ2 = diffUnitsQ.pow(3);
+		System.out.println(resultQ2.toString());
+		assertEquals("operation is executed properly", "8.0 m^3 s^6", resultQ2.toString());
+		assertEquals("diffUnitsQ is unchanged", "2.0 s", diffUnitsQ.toString());
+		
+		Quantity resultQ3 = firstQ.pow(0);
 	}
 	
 	/** Test equals */
