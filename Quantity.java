@@ -9,6 +9,7 @@
 
 
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -60,7 +61,8 @@ public class Quantity {
 	 */
 	public Quantity(Quantity quantity) {
 		value = quantity.getValue();
-		units = quantity.getUnits();
+		units = new HashMap<String, Integer>();
+		addUnits(quantity.getUnits());
 	}
 
 	/**
@@ -94,7 +96,6 @@ public class Quantity {
 				}			
 			}
 		}
-
 		
 		//go through denominator adding to map
 		for (int index=0; index<denominator.size(); index++) {
@@ -116,16 +117,37 @@ public class Quantity {
 
 	/* MATH FUNCTIONS */
 	public Quantity mul(Quantity otherQ) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		return null;
+		// check if arg is null
+		// throw IAE
+		if (otherQ == null) {
+			throw new IllegalArgumentException("Cannot multiply by null");
+		}
+		
+		// valid argument
+		double prod;
+		prod = this.getValue() * otherQ.getValue();
+		Quantity q = new Quantity(this);
+		q.setValue(prod);
+		q.addUnits(otherQ.getUnits());		
+		return q;
 	}
 	public Quantity div(Quantity otherQ) {
-		// TODO Auto-generated method stub
-		return null;
+		// check if arg is null or 0
+		// throw IAE
+		if (otherQ == null || otherQ.getValue() == 0.0) {
+			throw new IllegalArgumentException("Cannot divide by null or 0");
+		}
+		
+		// valid argument
+		double quot;
+		quot = this.getValue() / otherQ.getValue();
+		Quantity q = new Quantity(this);
+		q.setValue(quot);
+		q.subUnits(otherQ.getUnits());		
+		return q;
 	}
+
 	public Quantity add(Quantity otherQ) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-	
 		// check if arg is null OR if two Quantity objects have diff units
 		// throw IAE
 		if (otherQ == null || 
@@ -244,6 +266,37 @@ public class Quantity {
 		}
 		
 		return unitsString.toString();
+	}
+	
+	//takes in a units map and adds it to the current units
+	private void addUnits(Map<String, Integer> addmap){
+		TreeSet<String> orderedUnits =
+				new TreeSet<String>(addmap.keySet());
+		
+		for (String key: orderedUnits) {
+			if(units.containsKey(key)){ //if already in map, add exp
+				units.put(key, units.get(key)+addmap.get(key));
+				if (units.get(key) == 0)
+					units.remove(key);//remove if zero
+			} else { //else add it to the map
+				units.put(key, addmap.get(key));
+			}
+		}
+	}
+	//takes in a units map and removes that map from the current units
+	private void subUnits(Map<String, Integer> submap) {
+		TreeSet<String> orderedUnits =
+				new TreeSet<String>(submap.keySet());
+		
+		for (String key: orderedUnits) {
+			if(units.containsKey(key)){ //if already in map, add exp
+				units.put(key, units.get(key)-submap.get(key));
+				if (units.get(key) == 0)
+					units.remove(key);//remove if zero
+			} else { //else add it to the map
+				units.put(key, -(submap.get(key)));
+			}
+		}
 	}
 }
 

@@ -108,7 +108,7 @@ public class QuantityTester extends TestCase {
 			//continue should throw an exception
 		}
 		Quantity resultQ = firstQ.mul(secondQ);
-		assertEquals("operation is executed properly", "6.0 s", resultQ.toString());
+		assertEquals("operation is executed properly", "6.0 s^2", resultQ.toString());
 		//neither of the initial quantities should change
 		assertEquals("firstQ is unchanged", "2.0 s", firstQ.toString());
 		assertEquals("secondQ is unchanged", "3.0 s", secondQ.toString());
@@ -131,7 +131,7 @@ public class QuantityTester extends TestCase {
 			//continue should throw an exception
 		}
 		Quantity resultQ = secondQ.div(firstQ);
-		assertEquals("operation is executed properly", "1.5 s", resultQ.toString());
+		assertEquals("operation is executed properly", "1.5", resultQ.toString());
 		//neither of the initial quantities should change
 		assertEquals("firstQ is unchanged", "2.0 s", firstQ.toString());
 		assertEquals("secondQ is unchanged", "3.0 s", secondQ.toString());
