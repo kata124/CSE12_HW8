@@ -192,7 +192,7 @@ public class QuantityTester extends TestCase {
 	}
 	
 	/** Test pow */
-	public void testpow() {
+	public void testPow() {
 		Quantity resultQ = firstQ.pow(3);
 		assertEquals("operation is executed properly", "8.0 s^3", resultQ.toString());
 		//initial quantity should not change
