@@ -25,13 +25,11 @@ public class QuantityTester extends TestCase {
 
 	/* instance variables */
 	
-	
 	/* setUp() method */
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();
 	}
-	
 	
 	/* REQUIRED: TEST 3 constructors */
 	/** Test 0-arg */	// Creates quantity of value 1 and empty units map
@@ -43,7 +41,7 @@ public class QuantityTester extends TestCase {
 		{
 			fail("Should successfully create a new Quantity object");
 		}
-		assertEquals("toString should be 1", "1", noArg.toString());
+		assertEquals("toString should be 1.0", "1.0", noArg.toString());
 	}
 	
 	// 1: takes Quantity as parameter,
@@ -72,17 +70,21 @@ public class QuantityTester extends TestCase {
 		try{
 			threeArg = new Quantity(9.8, Arrays.asList("m"), null);
 			fail("Should throw an exception");
-		} catch (IllegalArgumentException e)
-		{
+		} catch (IllegalArgumentException e) {
 			//continue should throw an exception
 		}
 		try{
 			threeArg = new Quantity(9.8, Arrays.asList("m"), Arrays.asList("s","s"));
-		} catch (RuntimeException e)
-		{
+		} catch (RuntimeException e){
 			fail("Should successfully create a new Quantity object");
 		}
 		assertEquals("Value threeArg should be 9.8 m s^-2", "9.8 m s^-2", threeArg.toString());
+		
+		threeArg = new Quantity(12.4, Arrays.asList("m"), Arrays.asList("m"));
+		assertEquals("Value threeArg should be 12.4", "12.4", threeArg.toString());
+		
+		threeArg = new Quantity(12.4, Arrays.asList("m"), Arrays.asList(""));
+		assertEquals("Value threeArg should be 12.4 m", "12.4 m", threeArg.toString());
 	}
 	/* -- END CONSTRUCTOR TESTS -- */
 	

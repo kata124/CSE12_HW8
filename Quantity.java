@@ -35,7 +35,7 @@ public class Quantity {
 	private Map<String, Integer> units;
 	
 	/** db */
-	private Map<String, Quantity> db = QuantityDB.getDB();
+	//private Map<String, Quantity> db = QuantityDB.getDB();
 	
 	// constant: default value (for 0-arg constructor)
 	private final static double DEFAULT_VALUE = 1;
@@ -85,22 +85,31 @@ public class Quantity {
 		//go through numerator adding to map
 		for (int index=0; index<numerator.size(); index++) {
 			currentkey = numerator.get(index);
-			if (units.containsKey(currentkey))//if already in map, increment
-				units.put(currentkey, units.get(currentkey) + 1);
-			else //else add it to the map
-				units.put(currentkey, 1);
+			if (currentkey.compareTo("")!=0){//if currentkey is not empty
+				if (units.containsKey(currentkey)){ //if already in map, increment	
+					units.put(currentkey, units.get(currentkey) + 1);
+				}
+				else {//else add it to the map	
+					units.put(currentkey, 1);
+				}			
+			}
 		}
 
 		
 		//go through denominator adding to map
-		for (int index=0; index<numerator.size(); index++) {
+		for (int index=0; index<denominator.size(); index++) {
 			currentkey = denominator.get(index);
-			if (units.containsKey(currentkey))//if already in map, decrement
-				units.put(currentkey, units.get(currentkey) - 1);
-				if (units.get(currentkey) == 0)
-					units.remove(currentkey);//remove if zero
-			else //else add it to the map
-				units.put(currentkey, -1);
+			if (currentkey.compareTo("")!=0){//if currentkey is not empty
+				if (units.containsKey(currentkey))//if already in map, decrement
+				{	
+					units.put(currentkey, units.get(currentkey) - 1);
+					if (units.get(currentkey) == 0)
+						units.remove(currentkey);//remove if zero
+				}
+				else {//else add it to the map	
+					units.put(currentkey, -1);
+				}
+			}
 		}
 	}
 	/* -- END CONSTRUCTORS */
@@ -182,6 +191,7 @@ public class Quantity {
 		
 		for (String key: orderedUnits) {
 			int expt = myUnits.get(key);
+			unitsString.append(" " + key);
 			if (expt !=1)
 				unitsString.append("^" + expt);
 		}
@@ -205,25 +215,6 @@ public class Quantity {
 		return (Quantity)null;
 	}
 	/* -- END OTHER FUNCTIONS */
-	
-
-	/* Private helper methods */
-	private String toStringUnits() {
-		Map<String,Integer> myUnits = this.units;
-		
-		TreeSet<String> orderedUnits =
-				new TreeSet<String>(myUnits.keySet());
-		
-		StringBuffer unitsString = new StringBuffer();
-		
-		for (String key: orderedUnits) {
-			int expt = myUnits.get(key);
-			if (expt !=1)
-				unitsString.append("^" + expt);
-		}
-		
-		return unitsString.toString();
-	}
 
 	
 	/*-- PRIVATE HELPER METHODS --*/
@@ -236,6 +227,23 @@ public class Quantity {
 	}
 	private void setValue(double value) {
 		this.value = value;
+	}
+	
+	private String toStringUnits() {
+		Map<String,Integer> myUnits = this.units;
+		
+		TreeSet<String> orderedUnits =
+				new TreeSet<String>(myUnits.keySet());
+		StringBuffer unitsString = new StringBuffer();
+		
+		for (String key: orderedUnits) {
+			int expt = myUnits.get(key);
+			unitsString.append(" " + key);
+			if (expt !=1)
+				unitsString.append("^" + expt);
+		}
+		
+		return unitsString.toString();
 	}
 }
 
