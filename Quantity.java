@@ -7,6 +7,7 @@
  */
 
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 import java.util.TreeSet;
@@ -29,6 +30,9 @@ public class Quantity {
 	private double value;
 	/** units for Quantity object */
 	private Map<String, Integer> units;
+	
+	/** db */
+	private Map<String, Quantity> db = QuantityDB.getDB();
 	
 	// constant: default value (for 0-arg constructor)
 	private final static double DEFAULT_VALUE = 1;
@@ -71,18 +75,42 @@ public class Quantity {
 	/* -- END CONSTRUCTORS */
 
 	/* MATH FUNCTIONS */
-	public Quantity mul(Quantity otherQ) {
+	public Quantity mul(Quantity otherQ) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
-		return null;
+		try {
+			
+			return null;
+		}
+		catch (IllegalArgumentException e) {
+			
+		}
+		
 	}
 	public Quantity div(Quantity otherQ) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public Quantity add(Quantity otherQ) {
+	public Quantity add(Quantity otherQ) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
+	
+		// check if arg is null OR if two Quantity objects have diff units
+		// throw IAE
+		if (otherQ.equals(null) || 
+			this.toStringUnits().compareTo(otherQ.toStringUnits()) != 0) {
+			throw new IllegalArgumentException();
+		}
+		
+		// valid argument
+		double sum;
+		sum = this.getValue() + otherQ.getValue();
+		Quantity q = new Quantity(this);
+		q.setValue(sum);
+		return q;
+		
+		
 		return null;
 	}
+	
 	public Quantity sub(Quantity otherQ) {
 		// TODO Auto-generated method stub
 		return null;
@@ -101,8 +129,19 @@ public class Quantity {
 	/* OTHER FUNCTIONS */
 	public boolean equals(Object checkValue)
 	{
-		//TODO
+		// TODO
+		// only compare if Object is Quantity
+		if (this instanceof Quantity)
+		{
+			// if this Quantity and passed in Quantity are the same
+			if (this.toString().compareTo(checkValue.toString()) == 0) {
+				return true;
+			}
+		}
+		// if not Quantity or not the same...
 		return false;
+		
+		
 	}
 	
 	public int hashCode()
@@ -134,6 +173,7 @@ public class Quantity {
 		return df.format(myValue)+unitsString.toString();
 	}
 	
+	
 	public static Quantity normalizedUnit(String unitName, Map<String,Quantity> db)
 	{
 		//TODO
@@ -145,4 +185,22 @@ public class Quantity {
 		return (Quantity)null;
 	}
 	/* -- END OTHER FUNCTIONS */
+	
+	/* Private helper methods */
+	private String toStringUnits() {
+		Map<String,Integer> myUnits = this.units;
+		
+		TreeSet<String> orderedUnits =
+				new TreeSet<String>(myUnits.keySet());
+		
+		StringBuffer unitsString = new StringBuffer();
+		
+		for (String key: orderedUnits) {
+			int expt = myUnits.get(key);
+			if (expt !=1)
+				unitsString.append("^" + expt);
+		}
+		
+		return unitsString.toString();
+	}
 }

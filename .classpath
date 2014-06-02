@@ -3,6 +3,7 @@
 	<classpathentry kind="src" path=""/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/Users/Elliot/Desktop/UnicalcSolutionClassFiles.zip"/>
+	<classpathentry kind="lib" path="/Users/Elliot/git/CSE12_HW8/UnicalcSolutionClassFiles.zip"/>
+	<classpathentry kind="lib" path="/Users/Elliot/Desktop/UnicalcSolutionClassFiles"/>
 	<classpathentry kind="output" path=""/>
 </classpath>
