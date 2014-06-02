@@ -24,13 +24,13 @@ import junit.framework.TestCase;
 public class QuantityTester extends TestCase {
 
 	/* instance variables */
-	//Map<String,Quantity> db;
+	Map<String,Quantity> db;
 	
 	/* setUp() method */
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();
-		//db = QuantityDB.getDB();
+		db = QuantityDB.getDB();
 	}
 	
 	/* REQUIRED: TEST 3 constructors */
