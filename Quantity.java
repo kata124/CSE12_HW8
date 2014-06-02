@@ -60,7 +60,8 @@ public class Quantity {
 	 */
 	public Quantity(Quantity quantity) {
 		value = quantity.getValue();
-		units = quantity.getUnits();
+		units = new HashMap<String, Integer>();
+		addUnits(quantity.getUnits());
 	}
 
 	/**
@@ -94,7 +95,6 @@ public class Quantity {
 				}			
 			}
 		}
-
 		
 		//go through denominator adding to map
 		for (int index=0; index<denominator.size(); index++) {
@@ -116,16 +116,38 @@ public class Quantity {
 
 	/* MATH FUNCTIONS */
 	public Quantity mul(Quantity otherQ) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		return null;
+		// check if arg is null
+		// throw IAE
+		if (otherQ == null) {
+			throw new IllegalArgumentException("Cannot multiply by null");
+		}
+		
+		// valid argument
+		double prod;
+		prod = this.getValue() * otherQ.getValue();
+		Quantity q = new Quantity(this);
+		q.setValue(prod);
+		q.addUnits(otherQ.getUnits());		
+		return q;
 	}
 	public Quantity div(Quantity otherQ) {
-		// TODO Auto-generated method stub
-		return null;
+		// check if arg is null or 0
+		// throw IAE
+		if (otherQ == null || otherQ.getValue() == 0.0) {
+			throw new IllegalArgumentException("Cannot divide by null or 0");
+		}
+		
+		// valid argument
+		double quot;
+		quot = this.getValue() / otherQ.getValue();
+		Quantity q = new Quantity(this);
+		q.setValue(quot);
+		q.subUnits(otherQ.getUnits());		
+		return q;
 	}
+
 	public Quantity add(Quantity otherQ) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-	
+		
 		// check if arg is null OR if two Quantity objects have diff units
 		// throw IAE
 		if (otherQ == null || 
@@ -134,20 +156,51 @@ public class Quantity {
 		}
 		
 		// valid argument
-		double sum;
-		sum = this.getValue() + otherQ.getValue();
-		Quantity q = new Quantity(this);
-		q.setValue(sum);
-		return q;
+		return qMath("add", otherQ);
+		
+		// OLD CODE
+//		double sum;
+//		sum = this.getValue() + otherQ.getValue();
+//		Quantity q = new Quantity(this);
+//		q.setValue(sum);
+//		return q;
 	}
 	
 	public Quantity sub(Quantity otherQ) {
 		// TODO Auto-generated method stub
-		return null;
+		if (otherQ == null || 
+				this.toStringUnits().compareTo(otherQ.toStringUnits()) != 0) {
+				throw new IllegalArgumentException("Cannot sub two different units or null");
+		}
+		
+		// valid argument
+		return qMath("sub", otherQ);
 	}
+	
 	public Quantity pow(int power) {
-		// TODO Auto-generated method stub
-		return null;
+
+		Quantity q = new Quantity(this);
+//		double value = q.getValue();
+		
+		//List<String> numerator = new ArrayList<String>;
+		
+		if (power == 0) {
+			return new Quantity();
+		}
+		if (power == 1) {
+			return q;
+		}
+//		q.setValue(Math.pow(value, (double) power));
+//		Map<String, Integer> tmpUnits = q.getUnits();
+		
+		Quantity qStat = new Quantity(q);
+		for (int i = 2; i <= power; i++ ) {
+			System.out.println(i);
+			q.mul(qStat);
+		}
+	
+		return q;
+
 	}
 	public Quantity negate() {
 		// TODO Auto-generated method stub
@@ -244,6 +297,74 @@ public class Quantity {
 		}
 		
 		return unitsString.toString();
+	}
+	
+	/**
+	 * qMath
+	 * Helper method that performs mathematical operations based on 
+	 * appropriate method (e.g. sub(Quantity otherQ) ).
+	 * 
+	 * @param operation - MUST match method in which qMath is called
+	 * @return Quantity
+	 */
+	private Quantity qMath(String operation, Quantity otherQ) {
+		boolean isAdd = operation.compareTo("add") == 0;
+		boolean isSub = operation.compareTo("sub") == 0;
+		boolean isMul = operation.compareTo("mul") == 0;
+		
+		double val;
+		double thisVal = this.getValue();
+		double otherVal = otherQ.getValue();
+		
+		if (isAdd) {
+			val = thisVal + otherVal;
+		}
+		else if (isSub) {
+			val = thisVal - otherVal;
+		}
+		else {
+			// NOTE: this exception is for debugging; it should never occur
+			// when running code
+			throw new IllegalArgumentException("Called qMath with \"" + operation
+					+ "\", not a valid operation String");
+		}
+		
+		Quantity q = new Quantity(this);
+		q.setValue(val);
+		return q;
+	}
+	
+
+	
+	//takes in a units map and adds it to the current units
+	private void addUnits(Map<String, Integer> addmap){
+		TreeSet<String> orderedUnits =
+				new TreeSet<String>(addmap.keySet());
+		
+		for (String key: orderedUnits) {
+			if(units.containsKey(key)){ //if already in map, add exp
+				units.put(key, units.get(key)+addmap.get(key));
+				if (units.get(key) == 0)
+					units.remove(key);//remove if zero
+			} else { //else add it to the map
+				units.put(key, addmap.get(key));
+			}
+		}
+	}
+	//takes in a units map and removes that map from the current units
+	private void subUnits(Map<String, Integer> submap) {
+		TreeSet<String> orderedUnits =
+				new TreeSet<String>(submap.keySet());
+		
+		for (String key: orderedUnits) {
+			if(units.containsKey(key)){ //if already in map, add exp
+				units.put(key, units.get(key)-submap.get(key));
+				if (units.get(key) == 0)
+					units.remove(key);//remove if zero
+			} else { //else add it to the map
+				units.put(key, -(submap.get(key)));
+			}
+		}
 	}
 }
 
