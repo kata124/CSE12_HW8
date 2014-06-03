@@ -6,9 +6,6 @@
  * 06/02/14
  */
 
-
-
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -181,16 +178,19 @@ public class Quantity {
 
 		Quantity q = new Quantity(this);
 
-		if (power == 0) {
+		if (power == 0 || power == -0) {
 			return new Quantity();
 		}
 		if (power == 1) {
 			return q;
 		}	
 		Quantity qStat = new Quantity(q);
-		for (int i = 2; i <= power; i++ ) {
-			q = q.mul(qStat);
+		if (power >= 2) {
+			for (int i = 2; i <= power; i++ ) {
+				q = q.mul(qStat);
+			}
 		}
+
 	
 		return q;
 
