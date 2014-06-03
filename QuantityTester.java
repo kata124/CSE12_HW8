@@ -22,15 +22,27 @@ import junit.framework.TestCase;
  * @version 1.0
  */
 public class QuantityTester extends TestCase {
-
+	
 	/* instance variables */
 	Map<String,Quantity> db;
+	Map<String,Quantity> db2;
+	List<String> emp = new ArrayList<String>();
 	
 	/* setUp() method */
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();
 		db = QuantityDB.getDB();
+		// custom database (from HW8.pdf)
+		db2 = new HashMap<String, Quantity>();
+
+		db2.put("km", new Quantity(1000, Arrays.asList("meter"), emp));
+		db2.put("day", new Quantity(24, Arrays.asList("hour"), emp));
+		db2.put("hour", new Quantity(60, Arrays.asList("minute"), emp));
+		db2.put("minute", new Quantity(60, Arrays.asList("second"), emp));
+		db2.put("hertz", new Quantity(1, emp, Arrays.asList("second")));
+		db2.put("kph", new Quantity(1, Arrays.asList("km"), 
+				Arrays.asList("hour")));
 	}
 	
 	/* REQUIRED: TEST 3 constructors */
@@ -205,6 +217,16 @@ public class QuantityTester extends TestCase {
 		Quantity resultQ3 = firstQ.pow(0);
 		assertEquals("operation is executed properly", "1.0", resultQ3.toString());
 		assertEquals("firstQ is unchanged", "2.0 s", firstQ.toString());
+		
+		Quantity resultQ4 = diffUnitsQ.pow(1);
+		assertEquals("operation is executed properly", "1.0 m s^-2", resultQ4.toString());
+		assertEquals("diffUnitsQ is unchanged", "1.0 m s^-2", diffUnitsQ.toString());
+		
+		Quantity resultQ5 = diffUnitsQ.pow(-1);
+		System.out.println(resultQ5.toString());
+		assertEquals("operation is executed properly", "1.0 s^2 m^-1", resultQ4.toString());
+		assertEquals("diffUnitsQ is unchanged", "1.0 m s^-2", diffUnitsQ.toString());
+		
 		
 	}
 	
