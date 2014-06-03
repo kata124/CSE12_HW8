@@ -3,7 +3,7 @@
  * cs12edl / cs12edu
  * A09307269 / A09244911
  * Section A00 (for both)
- * TODO: DATE
+ * 02/06/14
  */
 
 import java.util.Arrays;
@@ -23,7 +23,7 @@ import junit.framework.TestCase;
  */
 public class ASTTester extends TestCase {
 
-	/* TODO: instance variables */
+	/* instance variables */
 	Map<String, Quantity> env = QuantityDB.getDB();
 	
 	/* CONSTANTS */ 
@@ -55,7 +55,7 @@ public class ASTTester extends TestCase {
  	
 	
 
-	/* TODO: setUp() method */
+	/* setUp() method */
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();
@@ -90,7 +90,7 @@ public class ASTTester extends TestCase {
 	}
 	
 	
-	/* TODO: REQUIRED: TEST AST EVAL METHODS FOR EACH CLASS  */
+	/* REQUIRED: TEST AST EVAL METHODS FOR EACH CLASS  */
 	/** Test Product */
 	public void testProductEval() {
 		AST product = new Product(value1, value2);

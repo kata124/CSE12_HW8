@@ -1,3 +1,11 @@
+/* CSE 12 Homework 8
+ * Elliot Humphrey / Kenichi Katayama
+ * cs12edl / cs12edu
+ * A09307269 / A09244911
+ * Section A00 (for both)
+ * 06/02/14
+ */
+
 // AST.java
 // Classes for representing Unicalc Abstract Syntax Tree.
 // Original author: Chris Stone

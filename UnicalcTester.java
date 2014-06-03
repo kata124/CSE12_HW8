@@ -3,7 +3,7 @@
  * cs12edl / cs12edu
  * A09307269 / A09244911
  * Section A00 (for both)
- * TODO: DATE
+ * 06/02/14
  */
 
 
@@ -22,14 +22,14 @@ import junit.framework.TestCase;
  */
 public class UnicalcTester extends TestCase {
 
-	/* TODO: instance variables */
+	/* instance variables */
 	Map<String,Quantity> env;
 	Unicalc unicalc;
 	
 	List<String> emp = new ArrayList<String>();
 	AST tree;
 
-	/* TODO: setUp() method */
+	/* setUp() method */
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();
@@ -43,7 +43,7 @@ public class UnicalcTester extends TestCase {
 	}
 	
 	
-	/* TODO: REQUIRED: TEST Unicalc METHODS */
+	/* REQUIRED: TEST Unicalc METHODS */
 	/** Test S */
 	public void testS() {
 		// def W L

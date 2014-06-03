@@ -1,8 +1,14 @@
+/* CSE 12 Homework 8
+ * Elliot Humphrey / Kenichi Katayama
+ * cs12edl / cs12edu
+ * A09307269 / A09244911
+ * Section A00 (for both)
+ * 06/02/14
+ */
+
 // Unicalc.java
 // Original Author: Chris Stone, Harvey Mudd College
-// TODO: Fill in and modify the functions below where the comments
-//   suggest changes are needed so that these functions correctly parse
-//   the Unicalc language
+// 
 
 // Extended by:
 
@@ -59,41 +65,85 @@ class Unicalc
 
 	public AST S()
 	{
-		//  S -> def W L | L
+		// S -> def W L | L
+		
+		String next = toks.peek();
 
-		return L();  // I don't think we should *always* do this...
+		if ( "def".equals(next) ) {//def W L
+			toks.pop();
+			String defString = toks.pop();//W
+			AST defL = L();//L
+			return new Define(defString, defL);
+		}
+		else return L();  //L
 	}
 
 	public AST L()
 	{
 		// L -> # E | E
 
-		return E();  // I don't think we should *always* do this...
+		String next = toks.peek();
+
+		if ( "#".equals(next) ) { //# E
+			toks.pop();
+			AST normE = E();//E
+			return new Normalize(normE);
+		}
+		else return E();  //E
 	}
 
 	public AST E() 
 	{
-		//   E -> P + E | P - E | P
+		// E -> P + E | P - E | P
 
-		AST p = P();
+		AST p = P(); //get P
+		String next = toks.peek();
 
-		return p;  // I don't think we should *always* do this...
+		if ( "+".equals(next) ) { //P + E
+			toks.pop(); //remove +
+			AST e = E();
+			return new Sum(p, e);
+		}
+		else if ( "-".equals(next) ) { //P - E
+			toks.pop(); //remove -
+			AST e = E();
+			return new Difference(p, e);
+		}
+		else return p;  //P		
 	}
 
 	public AST P()
 	{
-		//   P -> K * P | K / P | K
+		//  P -> K * P | K / P | K
 
-		AST k = K();
-
-		return k;  // I don't think we should *always* do this
+		AST k = K(); //get K
+		String next = toks.peek();
+		
+		if ( "*".equals(next) ) { //K * P
+			toks.pop(); //remove +
+			AST p = P();
+			return new Product(k, p);
+		}
+		else if ( "/".equals(next) ) { //K / P
+			toks.pop(); //remove +
+			AST p = P();
+			return new Quotient(k, p);
+		}
+		else return k;  //k			
 	}
 
 	public AST K()
 	{
 		// K -> - K | Q 
 
-		return Q();  // I don't think we should *always* do this
+		String next = toks.peek();
+
+		if ( "-".equals(next) ) { //- K
+			toks.pop();
+			AST negK = K();//K
+			return new Negation(negK);
+		}
+		else return Q();  //Q
 	}
 
 	// private method isNumber
@@ -128,23 +178,36 @@ class Unicalc
 	{
 		// Q -> R | R Q 
 
-		AST r = R();
-
-		return r;  // I don't think I should *always* do this
-		//   (e.g., if I peek and the R is followed
+		AST r = R(); //get R
+		String next = toks.peek();
+		
+		if ( isNumber(next) || isAlphabetic(next) || "(".equals(next) ) { 
+			//R Q
+			AST q = Q();
+			return new Product(r, q);
+		} 
+		else return r;  // R
+		
+		//	  I don't think I should *always* do this
+		//    (e.g., if I peek and the R is followed
 		//    by a number, word, or left parenthesis,
 		//    I should try to recurively grab at least
 		//    one more R via Q...)
-
 	}
 
 	public AST R()
 	{
-		// R -> V | V ^ J
+		//R -> V | V ^ J
 
-		AST v = V();
-
-		return v;  // I don't think I should *always* do this
+		AST v = V(); //get V
+		String next = toks.peek();
+		
+		if ( "^".equals(next) ) { //V ^ J
+			toks.pop();
+			int j = J();
+			return new Power(v, j);
+		} 
+		return v;  // V
 	}
 
 	//  --------------------------------------------------
@@ -282,6 +345,8 @@ class Unicalc
 			System.out.println("Result: " + ast.eval(env) + "\n");
 
 		}
+		
+		console.close();
 	}
 
 }      
