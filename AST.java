@@ -53,7 +53,7 @@ class Product implements AST
 
 	public Quantity eval(Map<String,Quantity> env)
 	{
-		// TODO: Product eval
+		// Product eval
 		return left.eval(env).mul(right.eval(env));
 	}  
 
@@ -84,7 +84,7 @@ class Quotient implements AST
 
 	public Quantity eval(Map<String,Quantity> env)
 	{
-		// TODO: Quotient eval
+		// Quotient eval
 		return left.eval(env).div(right.eval(env));
 	}  
 
@@ -115,7 +115,7 @@ class Power implements AST
 
 	public Quantity eval(Map<String,Quantity> env)
 	{
-		// TODO: Power eval
+		// Power eval
 		return child.eval(env).pow(exponent); 
 	}
 
@@ -146,7 +146,7 @@ class Sum implements AST
 
 	public Quantity eval(Map<String,Quantity> env)
 	{
-		// TODO: Sum eval
+		// Sum eval
 		return left.eval(env).add(right.eval(env));
 	}  
 
@@ -177,7 +177,7 @@ class Difference implements AST
 
 	public Quantity eval(Map<String,Quantity> env)
 	{
-		// TODO: Difference eval
+		// Difference eval
 		return left.eval(env).sub(right.eval(env)); 
 	}  
 
@@ -208,7 +208,7 @@ class Negation implements AST
 
 	public Quantity eval(Map<String,Quantity> env)
 	{
-		// TODO: Negation eval
+		// Negation eval
 		return child.eval(env).negate();
 	}
 
@@ -236,7 +236,7 @@ class Value implements AST
 
 	public Quantity eval(Map<String,Quantity> env)
 	{
-		// TODO: Value eval
+		// Value eval
 		return quant; // quant is <const>, so it's a leaf node
 	}  
 
@@ -265,7 +265,7 @@ class Normalize implements AST
 
 	public Quantity eval(Map<String,Quantity> env)
 	{
-		// TODO: Normalize eval
+		// Normalize eval
 		return child.eval(env).normalize(env);
 	}
 
@@ -297,7 +297,7 @@ class Define implements AST
 
 	public Quantity eval(Map<String,Quantity> env)
 	{
-		// TODO: Define eval
+		// Define eval
 		Quantity val = new Quantity(defn.eval(env));
 		env.put(unitName, val);
 		return val; 
