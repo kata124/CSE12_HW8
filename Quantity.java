@@ -206,7 +206,6 @@ public class Quantity {
 	/* OTHER FUNCTIONS */
 	public boolean equals(Object checkValue)
 	{
-		// TODO
 		// only compare if Object is Quantity
 		if (this instanceof Quantity)
 		{
@@ -216,9 +215,7 @@ public class Quantity {
 			}
 		}
 		// if not Quantity or not the same...
-		return false;
-		
-		
+		return false;	
 	}
 	
 	public int hashCode()
