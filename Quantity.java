@@ -175,26 +175,26 @@ public class Quantity {
 	}
 	
 	public Quantity pow(int power) {
-
 		Quantity q = new Quantity(this);
-
+		
 		if (power == 0 || power == -0) {
 			return new Quantity();
 		}
-		if (power == 1) {
-			return q;
-		}	
+		//multiply by self multiple times
 		Quantity qStat = new Quantity(q);
-		if (power >= 2) {
-			for (int i = 2; i <= power; i++ ) {
+		for (int i = 2; i <= Math.abs(power); i++ ) {
 				q = q.mul(qStat);
-			}
 		}
-
-	
+		//if negative power flip value
+		if (power < 0){
+			q.setValue(1/q.getValue());
+			//and flip units
+			q.flipUnits();
+		}
+		
 		return q;
-
 	}
+
 	public Quantity negate() {
 		Quantity q = new Quantity(this);
 		q.setValue(q.getValue()*-1);
@@ -355,6 +355,15 @@ public class Quantity {
 				units.put(key, -(submap.get(key)));
 			}
 		}
+	}
+	//flips the signs of the current units
+	private void flipUnits() {
+		//Set up array of key values
+		TreeSet<String> orderedUnits =
+				new TreeSet<String>(units.keySet());
+		
+		for (String key : orderedUnits)
+			units.put(key, units.get(key)*-1);
 	}
 }
 

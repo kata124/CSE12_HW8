@@ -223,11 +223,8 @@ public class QuantityTester extends TestCase {
 		assertEquals("diffUnitsQ is unchanged", "1.0 m s^-2", diffUnitsQ.toString());
 		
 		Quantity resultQ5 = diffUnitsQ.pow(-1);
-		System.out.println(resultQ5.toString());
-		assertEquals("operation is executed properly", "1.0 s^2 m^-1", resultQ4.toString());
-		assertEquals("diffUnitsQ is unchanged", "1.0 m s^-2", diffUnitsQ.toString());
-		
-		
+		assertEquals("operation is executed properly", "1.0 m^-1 s^2", resultQ5.toString());
+		assertEquals("diffUnitsQ is unchanged", "1.0 m s^-2", diffUnitsQ.toString());	
 	}
 	
 	/** Test equals */
