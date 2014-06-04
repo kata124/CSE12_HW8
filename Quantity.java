@@ -34,11 +34,6 @@ public class Quantity {
 	/** units for Quantity object */
 	private Map<String, Integer> units;
 	
-	/** db */
-	//private Map<String, Quantity> db = QuantityDB.getDB();
-	
-	// constant: default value (for 0-arg constructor)
-	private final static double DEFAULT_VALUE = 1;
 	List<String> emp = Collections.<String>emptyList();
 	
 	/* CONSTRUCTORS */
@@ -252,16 +247,16 @@ public class Quantity {
 	public static Quantity normalizedUnit(String unitName, Map<String,Quantity> db)
 	{
 		// BASE CASE
-		System.out.println("--normalizedUnit() called--");
+		// System.out.println("--normalizedUnit() called--");
 		if (!db.containsKey(unitName)) {
-			System.out.println(unitName + " is primitive!");
+			// System.out.println(unitName + " is primitive!");
 			return new Quantity(1.0, Arrays.asList(unitName), Arrays.asList(""));
 		}
 		
 		// take out Quantity in db
 		Quantity returnQ = new Quantity(db.get(unitName));
-		System.out.println("normalizedUnit-returnQ: " + returnQ.toString());
-		System.out.println("ABOUT TO RETURN " + returnQ + " IN NORMALIZEDUNIT");
+		// System.out.println("normalizedUnit-returnQ: " + returnQ.toString());
+		// System.out.println("ABOUT TO RETURN " + returnQ + " IN NORMALIZEDUNIT");
 		return returnQ.normalize(db);
 
 	}
@@ -278,14 +273,14 @@ public class Quantity {
 		for (String key : keyset) {
 			pow = this.units.get(key);
 			
-			System.out.println("key: " + key);
-			System.out.println("returnQ: " + returnQ.toString());
+			// System.out.println("key: " + key);
+			// System.out.println("returnQ: " + returnQ.toString());
 			
 			Quantity newQ = Quantity.normalizedUnit(key, db);
 			newQ = newQ.pow(pow);
 			returnQ = returnQ.mul(newQ);
 		}	
-		System.out.println("ABOUT TO RETURN " + returnQ + " in norm()");
+		// System.out.println("ABOUT TO RETURN " + returnQ + " in norm()");
 		return returnQ;
 	}
 	/* -- END OTHER FUNCTIONS */
