@@ -3,7 +3,7 @@
  * cs12edl / cs12edu
  * A09307269 / A09244911
  * Section A00 (for both)
- * 06/02/14
+ * 06/03/14
  */
 
 // AST.java
@@ -11,7 +11,6 @@
 // Original author: Chris Stone
 
 // Extended by: Christine Alvarado
-
 
 import java.util.*;
 
