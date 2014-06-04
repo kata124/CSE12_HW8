@@ -7,10 +7,12 @@
  */
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
+import java.util.Set;
 import java.util.TreeSet;
 import java.text.DecimalFormat;
 
@@ -37,7 +39,7 @@ public class Quantity {
 	
 	// constant: default value (for 0-arg constructor)
 	private final static double DEFAULT_VALUE = 1;
-
+	List<String> emp = Collections.<String>emptyList();
 	
 	/* CONSTRUCTORS */
 	/** 
@@ -247,16 +249,44 @@ public class Quantity {
 		return df.format(myValue)+unitsString.toString();
 	}
 	
-	
 	public static Quantity normalizedUnit(String unitName, Map<String,Quantity> db)
 	{
-		//TODO
-		return (Quantity)null;
+		// BASE CASE
+		System.out.println("--normalizedUnit() called--");
+		if (!db.containsKey(unitName)) {
+			System.out.println(unitName + " is primitive!");
+			return new Quantity(1.0, Arrays.asList(unitName), Arrays.asList(""));
+		}
+		
+		// take out Quantity in db
+		Quantity returnQ = new Quantity(db.get(unitName));
+		System.out.println("normalizedUnit-returnQ: " + returnQ.toString());
+		System.out.println("ABOUT TO RETURN " + returnQ + " IN NORMALIZEDUNIT");
+		return returnQ.normalize(db);
+
 	}
+	
 	public Quantity normalize(Map<String,Quantity> db)
 	{
-		//TODO
-		return (Quantity)null;
+		System.out.println("----normalize() called");
+		int pow;
+		String key = "test";
+		//Quantity newQ = new Quantity(this);
+		Quantity returnQ = new Quantity(this.getValue(), emp, emp);
+		
+		Set<String> keyset = this.units.keySet();
+		
+		for (String k : keyset) {
+			pow = this.units.get(k);
+			key = k;
+		}
+	
+		System.out.println("key: " + key);
+		System.out.println("returnQ: " + returnQ.toString());
+		returnQ = returnQ.mul(Quantity.normalizedUnit(key, db));
+		
+		System.out.println("ABOUT TO RETURN " + returnQ + " in norm()");
+		return returnQ;	
 	}
 	/* -- END OTHER FUNCTIONS */
 
