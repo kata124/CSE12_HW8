@@ -250,20 +250,19 @@ public class QuantityTester extends TestCase {
 		assertEquals("checkQ is 1000.0 meters", "1000.0 meter", checkQ.toString());
 		
 		checkQ = Quantity.normalizedUnit("kph", db);
-		assertEquals("checkQ is .27 mps", ".27777... meters per second", checkQ.toString());
+		assertEquals("checkQ is .27 mps", "0.27778 meter second^-1", checkQ.toString());
 		
 		checkQ = Quantity.normalizedUnit("smoot", db);
-		assertEquals("checkQ is 1 smoot", "1 smoot", checkQ.toString());
+		assertEquals("checkQ is 1 smoot", "1.0 smoot", checkQ.toString());
 	}
 	
 	/** Test normalize */
 	public void testNormalize() {
 		Quantity q = new Quantity(2, Arrays.asList("hour"), emp);
-		//q.normalize(db);
+		q.normalize(db);
 		assertEquals("7200.0 second", q.normalize(db).toString());
-//		Quantity normQ = new Quantity(1, Arrays.asList("k"), Arrays.asList("h"));
-//		Quantity checkQ = normQ.normalize(db);
-//		assertEquals("checkQ is .27 mps", ".27777... meters per second", checkQ.toString());
+		Quantity normQ = new Quantity(1, Arrays.asList("km"), Arrays.asList("hour"));
+		assertEquals("checkQ is .27 mps", "0.27778 meter second^-1", normQ.normalize(db).toString());
 	}
 
 	/* -- END REQUIRED TESTS -- */

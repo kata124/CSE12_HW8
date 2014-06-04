@@ -270,23 +270,23 @@ public class Quantity {
 	{
 		System.out.println("----normalize() called");
 		int pow;
-		String key = "test";
 		//Quantity newQ = new Quantity(this);
 		Quantity returnQ = new Quantity(this.getValue(), emp, emp);
 		
 		Set<String> keyset = this.units.keySet();
 		
-		for (String k : keyset) {
-			pow = this.units.get(k);
-			key = k;
-		}
-	
-		System.out.println("key: " + key);
-		System.out.println("returnQ: " + returnQ.toString());
-		returnQ = returnQ.mul(Quantity.normalizedUnit(key, db));
-		
+		for (String key : keyset) {
+			pow = this.units.get(key);
+			
+			System.out.println("key: " + key);
+			System.out.println("returnQ: " + returnQ.toString());
+			
+			Quantity newQ = Quantity.normalizedUnit(key, db);
+			newQ = newQ.pow(pow);
+			returnQ = returnQ.mul(newQ);
+		}	
 		System.out.println("ABOUT TO RETURN " + returnQ + " in norm()");
-		return returnQ;	
+		return returnQ;
 	}
 	/* -- END OTHER FUNCTIONS */
 
