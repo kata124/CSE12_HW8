@@ -263,7 +263,7 @@ public class Quantity {
 	
 	public Quantity normalize(Map<String,Quantity> db)
 	{
-		System.out.println("----normalize() called");
+		// System.out.println("----normalize() called");
 		int pow;
 		//Quantity newQ = new Quantity(this);
 		Quantity returnQ = new Quantity(this.getValue(), emp, emp);
