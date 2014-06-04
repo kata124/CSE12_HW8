@@ -3,7 +3,7 @@
  * cs12edl / cs12edu
  * A09307269 / A09244911
  * Section A00 (for both)
- * 06/02/14
+ * 06/03/14
  */
 
 import java.util.ArrayList;
@@ -114,7 +114,7 @@ public class Quantity {
 		// check if arg is null
 		// throw IAE
 		if (otherQ == null) {
-			throw new IllegalArgumentException("Cannot multiply by null");
+			throw new IllegalArgumentException();
 		}
 		
 		// valid argument
@@ -129,7 +129,7 @@ public class Quantity {
 		// check if arg is null or 0
 		// throw IAE
 		if (otherQ == null || otherQ.getValue() == 0.0) {
-			throw new IllegalArgumentException("Cannot divide by null or 0");
+			throw new IllegalArgumentException("Cannot div by 0.0");
 		}
 		
 		// valid argument
@@ -146,25 +146,18 @@ public class Quantity {
 		// throw IAE
 		if (otherQ == null || 
 			this.toStringUnits().compareTo(otherQ.toStringUnits()) != 0) {
-			throw new IllegalArgumentException("Cannot add two different units or null");
+			throw new IllegalArgumentException("Unit mismatch in add");
 		}
 		
 		// valid argument
 		return qMath("add", otherQ);
-		
-		// OLD CODE
-//		double sum;
-//		sum = this.getValue() + otherQ.getValue();
-//		Quantity q = new Quantity(this);
-//		q.setValue(sum);
-//		return q;
 	}
 	
 	public Quantity sub(Quantity otherQ) {
 		// TODO Auto-generated method stub
 		if (otherQ == null || 
 				this.toStringUnits().compareTo(otherQ.toStringUnits()) != 0) {
-				throw new IllegalArgumentException("Cannot sub two different units or null");
+				throw new IllegalArgumentException("Unit mismatch in sub");
 		}
 		
 		// valid argument
@@ -294,10 +287,12 @@ public class Quantity {
 	private double getValue() {
 		return value;
 	}
+	
 	private void setValue(double value) {
 		this.value = value;
 	}
 	
+	// prints out units of a quantity
 	private String toStringUnits() {
 		Map<String,Integer> myUnits = this.units;
 		
@@ -327,7 +322,6 @@ public class Quantity {
 	private Quantity qMath(String operation, Quantity otherQ) {
 		boolean isAdd = operation.compareTo("add") == 0;
 		boolean isSub = operation.compareTo("sub") == 0;
-		boolean isMul = operation.compareTo("mul") == 0;
 		
 		double val;
 		double thisVal = this.getValue();
